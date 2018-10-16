@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(gflags VERSION 2.1.2)
+# project(gflags VERSION 2.1.2)
+project(gflags VERSION 2.2.1)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
@@ -23,8 +24,9 @@ set(Gflags_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
     include(ExternalProject)
 	ExternalProject_Add(
 		${PROJECT_NAME}_download
-		GIT_REPOSITORY  https://github.com/gflags/gflags.git
-		GIT_TAG 74bcd20c0e5b904a67e37abf0c1262824ff9030c
+		# GIT_REPOSITORY  https://github.com/gflags/gflags.git
+		# GIT_TAG 74bcd20c0e5b904a67e37abf0c1262824ff9030c
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/gflags-2.2.1.zip
 		DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
 		CONFIGURE_COMMAND ""
 		BUILD_COMMAND ""

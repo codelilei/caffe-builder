@@ -1,13 +1,14 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(opencv VERSION 3.1.0)
+# project(opencv VERSION 3.1.0)
+project(opencv VERSION 3.4.3)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 option(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS "Build shared libraries for ${PROJECT_NAME}" ${BUILD_SHARED_LIBS})
 option(${PROJECT_NAME_UPPER}_WITH_CUDA "Build ${PROJECT_NAME} with CUDA" OFF)
 option(${PROJECT_NAME_UPPER}_CLONE_FFMPEG "Clone ffmpeg windows dependency instead of downloading it" OFF)
-option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python support" OFF)
+option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python support" ON)
 option(${PROJECT_NAME_UPPER}_WITH_CONTRIB "Build ${PROJECT_NAME} with contrib module" OFF)
 
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
@@ -19,7 +20,8 @@ set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DCUDA_ARCH_BIN="3.0 3.5 3.7 5.0 5.2"
     -DCUDA_ARCH_PTX="3.0"
     -DBUILD_ZLIB=OFF
-    -DBUILD_opencv_python2:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
+    # -DBUILD_opencv_python2:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
+    -DBUILD_opencv_python2=OFF
     -DBUILD_opencv_python3:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
     -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR}
     -DZLIB_LIBRARY_RELEASE=${ZLIB_LIBRARY_RELEASE}
@@ -53,9 +55,14 @@ elseif(MSVC_VERSION EQUAL 1800)
     set(OpenCV_RUNTIME vc12)
 elseif(MSVC_VERSION EQUAL 1900)
     set(OpenCV_RUNTIME vc14)
+elseif(MSVC_VERSION EQUAL 1915)
+    set(OpenCV_RUNTIME vc15)
+else()
+    set(OpenCV_RUNTIME vc15)
 endif()
 
 set(OpenCV_RUNTIME ${OpenCV_RUNTIME} PARENT_SCOPE)
+message(STATUS "##############OpenCV_RUNTIME=${OpenCV_RUNTIME}##############")
 
 if(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS)
     set(OpenCV_STATIC OFF)
@@ -86,7 +93,8 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         ExternalProject_Add(
             ${_ext_proj_ffmpeg}
             DOWNLOAD_COMMAND git clone https://github.com/opencv/opencv_3rdparty.git -c core.autocrlf=false
-            UPDATE_COMMAND cd ${CB_DOWNLOAD_DIR}/opencv_3rdparty && git checkout ffmpeg/master_20150703
+            # UPDATE_COMMAND cd ${CB_DOWNLOAD_DIR}/opencv_3rdparty && git checkout ffmpeg/master_20150703
+            UPDATE_COMMAND cd ${CB_DOWNLOAD_DIR}/opencv_3rdparty && git checkout ffmpeg/master_20180220
             DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
             CONFIGURE_COMMAND ""
             BUILD_COMMAND ""
@@ -101,8 +109,9 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         if(${PROJECT_NAME_UPPER}_WITH_CONTRIB)
         ExternalProject_Add(
             ${PROJECT_NAME}_download_contrib
-            URL  "https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz"
-            DOWNLOAD_NAME opencv-contrib-3.1.0.zip
+            # URL  "https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz"
+            URL  "https://github.com/opencv/opencv_contrib/archive/3.4.3.tar.gz"
+            # DOWNLOAD_NAME opencv-contrib-3.1.0.zip
             DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
             CONFIGURE_COMMAND ""
             BUILD_COMMAND ""
@@ -151,12 +160,14 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
 
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL  "https://github.com/opencv/opencv/archive/3.1.0.zip"
-        DOWNLOAD_NAME opencv-3.1.0.zip
+        # URL  "https://github.com/opencv/opencv/archive/3.1.0.zip"
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/opencv-3.4.3.zip
+        # DOWNLOAD_NAME opencv-3.1.0.zip
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
-        PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                      "${CMAKE_CURRENT_SOURCE_DIR}/patches/CMakeListsPatch.txt"
-                      "CMakeLists.txt"
+        # PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                      # "${CMAKE_CURRENT_SOURCE_DIR}/patches/CMakeListsPatch.txt"
+                      # "CMakeLists.txt"
+                      
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
         INSTALL_COMMAND ""

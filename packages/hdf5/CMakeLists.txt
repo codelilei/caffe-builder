@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(hdf5 VERSION 1.8.16)
+# project(hdf5 VERSION 1.8.16)
+project(hdf5 VERSION 1.8.17)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
@@ -33,7 +34,8 @@ set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.16/src/CMake-hdf5-1.8.16.zip
+        # URL https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.16/src/CMake-hdf5-1.8.16.zip
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/CMake-hdf5-1.8.17.zip
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
@@ -66,6 +68,7 @@ set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()
 
+    # message(STATUS "#########hdf5 CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}#########")
     if(PYTHON_EXECUTABLE)
         # only do this once since hdf5-targets is common to all configs
         ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate

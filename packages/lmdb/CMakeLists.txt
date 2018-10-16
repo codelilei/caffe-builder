@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(lmdb VERSION 0.9.70)
+# project(lmdb VERSION 0.9.70)
+project(lmdb VERSION 0.9.22)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
@@ -21,10 +22,11 @@ set(${PROJECT_NAME}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL "https://github.com/LMDB/lmdb/archive/LMDB_0.9.18.zip"
-        URL_HASH SHA512=46d7ba226af05443c871f83c6ae0ab2ddbeecd289df59c082e806e135fcaa69d9d9060a19a4a907c4f7046de30871126e91e540eca27fc94446e95ba5616155b
-        PATCH_COMMAND
-        COMMAND ${GIT_EXECUTABLE} --work-tree=. --git-dir=.git apply "${PATCH}" --ignore-whitespace --whitespace=nowarn --verbose
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/lmdb-LMDB_0.9.22.zip
+        # URL "https://github.com/LMDB/lmdb/archive/LMDB_0.9.18.zip"
+        # URL_HASH SHA512=46d7ba226af05443c871f83c6ae0ab2ddbeecd289df59c082e806e135fcaa69d9d9060a19a4a907c4f7046de30871126e91e540eca27fc94446e95ba5616155b
+        # PATCH_COMMAND
+        # COMMAND ${GIT_EXECUTABLE} --work-tree=. --git-dir=.git apply "${PATCH}" --ignore-whitespace --whitespace=nowarn --verbose
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""

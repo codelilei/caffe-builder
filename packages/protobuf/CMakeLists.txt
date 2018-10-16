@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(protobuf VERSION 3.1.0)
+# project(protobuf VERSION 3.1.0)
+project(protobuf VERSION 3.6.1)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
@@ -39,10 +40,11 @@ set(protobuf_MODULE_COMPATIBLE ON CACHE BOOL \"\")
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL https://github.com/google/protobuf/archive/v3.1.0/protobuf-v3.1.0.tar.gz
-        URL_MD5 39d6a4fa549c0cce164aa3064b1492dc
+        # URL https://github.com/google/protobuf/archive/v3.1.0/protobuf-v3.1.0.tar.gz
+        # URL_MD5 39d6a4fa549c0cce164aa3064b1492dc
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/protobuf-3.6.1.tar.gz
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
-        PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/patches/type_traits.h src/google/protobuf/stubs/type_traits.h
+        # PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/patches/type_traits.h src/google/protobuf/stubs/type_traits.h
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
         INSTALL_COMMAND ""

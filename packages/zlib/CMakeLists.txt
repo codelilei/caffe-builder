@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(zlib VERSION 1.2.8)
+# project(zlib VERSION 1.2.8)
+project(zlib VERSION 1.2.11)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
@@ -36,9 +37,10 @@ set(ZLIB_LIBRARY_RELEASE  \${CMAKE_CURRENT_LIST_DIR}/lib/${_rel_lib} CACHE FILEP
 
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL https://github.com/madler/zlib/archive/v1.2.8.tar.gz
-        URL_MD5 1eabf2698dc49f925ce0ffb81397098f
-        DOWNLOAD_NAME ${PROJECT_NAME}-v1.2.8.tar.gz
+        # URL https://github.com/madler/zlib/archive/v1.2.8.tar.gz
+        # URL_MD5 1eabf2698dc49f925ce0ffb81397098f
+        # DOWNLOAD_NAME ${PROJECT_NAME}-v1.2.8.tar.gz
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/zlib-1.2.11.tar.gz
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/patches/CMakeLists.txt.in CMakeLists.txt
         CONFIGURE_COMMAND ""

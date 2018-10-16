@@ -40,7 +40,8 @@ set(OpenBLAS_LIB \${CMAKE_CURRENT_LIST_DIR}/lib/libopenblas.dll.a CACHE FILEPATH
 
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL ${_openblas_url}
+        # URL ${_openblas_url}
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/OpenBLAS-v0.2.14-Win64-int32.zip
         ${_openblas_hash}
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
@@ -56,7 +57,8 @@ set(OpenBLAS_LIB \${CMAKE_CURRENT_LIST_DIR}/lib/libopenblas.dll.a CACHE FILEPATH
 
     ExternalProject_Add(
         ${PROJECT_NAME}_download_mingw
-        URL ${_mingw_url}
+        # URL ${_mingw_url}
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/mingw64_dll.zip
         ${_mingw_hash}
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""

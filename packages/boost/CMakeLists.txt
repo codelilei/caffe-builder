@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(boost VERSION 1.61.0)
+# project(boost VERSION 1.61.0)
+project(boost VERSION 1.68.0)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
@@ -44,7 +45,8 @@ set(Boost_USE_STATIC_RUNTIME ${Boost_USE_STATIC_RUNTIME} CACHE BOOL \"\")
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.7z
+        # URL https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.7z
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/boost_1_68_0.7z
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND cmd /c bootstrap.bat
         BUILD_COMMAND ""
@@ -78,6 +80,11 @@ set(Boost_USE_STATIC_RUNTIME ${Boost_USE_STATIC_RUNTIME} CACHE BOOL \"\")
     set(MSVC_VERSION_MAP_1700 msvc-11.0)
     set(MSVC_VERSION_MAP_1800 msvc-12.0)
     set(MSVC_VERSION_MAP_1900 msvc-14.0)
+    set(MSVC_VERSION_MAP_1911 msvc-14.1)
+    set(MSVC_VERSION_MAP_1912 msvc-14.1)
+    set(MSVC_VERSION_MAP_1913 msvc-14.1)
+    set(MSVC_VERSION_MAP_1914 msvc-14.1)
+    set(MSVC_VERSION_MAP_1915 msvc-14.1)
 
     set(_toolset "toolset=${MSVC_VERSION_MAP_${MSVC_VERSION}}")
 

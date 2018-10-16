@@ -34,8 +34,9 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        GIT_REPOSITORY  "https://github.com/willyd/leveldb.git"
-		GIT_TAG f8699ba75e2cc2a2641c019eeab40149734d3390
+        # GIT_REPOSITORY  "https://github.com/willyd/leveldb.git"
+        GIT_REPOSITORY  ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/leveldb
+		# GIT_TAG f8699ba75e2cc2a2641c019eeab40149734d3390
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
@@ -83,8 +84,10 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
         ExternalProject_Add(
         ${PROJECT_NAME}_python
         DEPENDS ${${PROJECT_NAME}_targets}
-        GIT_REPOSITORY "https://github.com/willyd/py-leveldb-windows.git"
-        GIT_TAG d0811231aea8f629c3749183d60d5bfb9abfa6fb
+        # GIT_REPOSITORY "https://github.com/willyd/py-leveldb-windows.git"
+        GIT_REPOSITORY ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/leveldb
+        # GIT_TAG d0811231aea8f629c3749183d60d5bfb9abfa6fb
+        GIT_TAG boostlinking
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${_config}
                     -DBUILD_SHARED_LIBS=${${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS}
