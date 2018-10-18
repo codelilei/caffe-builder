@@ -12,8 +12,8 @@ This repository is forked from [willyd/caffe-builder](https://github.com/willyd/
 
 
 It also aims to adapt builds for the currently latest **VS 2017**.  
-Additionally, dependencies are downloaded together from netdisk to avoid some annoying network prolems.  
-Module build scripts also use local files in case of re-download.
+Additionally, dependencies are downloaded together from netdisk to avoid some annoying network problems.  
+Module build scripts also use local files in case of repeated downloads.
 
 
 # Caffe-Builder
